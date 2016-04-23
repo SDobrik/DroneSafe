@@ -18,6 +18,15 @@
         <item>@string/pref_dist_feet_label</item>
     </string-array>
 
+    <string-array name="pref_speed_unit_options">
+        <item>@string/pref_speed_units_kmh</item>
+        <item>@string/pref_speed_units_mph</item>
+    </string-array>
+    <string-array name="pref_speed_unit_options_text">
+        <item>@string/pref_speed_kmh_label</item>
+        <item>@string/pref_speed_mph_label</item>
+    </string-array>
+
     <string-array name="pref_sync_frequency_titles">
         <item>15 minutes</item>
         <item>30 minutes</item>
