@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">DroneSafe</string>
-<<<<<<< HEAD
     <string name="title_activity_maps">DroneSafe</string>
-=======
-    <string name="title_activity_maps">Map</string>
->>>>>>> 8318f7f61cf561a17062a186da0ccd8bcdfb9e3b
     <string name="google_maps_key">AIzaSyBENzckC6LzGvktAnEj2cHWgTe9xQXRwDI</string>
 </resources>
