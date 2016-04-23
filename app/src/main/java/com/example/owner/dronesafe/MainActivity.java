@@ -122,7 +122,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //            // Show rationale and request permission.
         }
 
-        LatLng sydney = new LatLng(R.integer.Latitude, R.integer.Longitude);// set it equal to current location
+        LatLng sydney = new LatLng(43.46, -80.52);// set it equal to current location
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
