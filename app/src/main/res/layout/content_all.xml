@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.sothree.slidinguppanel.SlidingUpPanelLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="bottom">
 
@@ -8,42 +8,53 @@
         layout="@layout/content_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <RelativeLayout
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:id="@+id/weather_icon_display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16px"
-            android:src="@drawable/common_full_open_on_phone"
-            android:background="@color/colorAccent"/>
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/temperature_display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/weather_icon_display"
 
-            android:background="@color/colorAccent"
-            android:text="21°C"/>
-        <android.support.v7.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/temperature_display"
-            android:layout_toRightOf="@id/weather_icon_display"
-            android:background="@color/colorAccent"
-            android:text="5 km/h E"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/weather_icon_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16px"
+                android:background="@color/colorAccent"
+                android:src="@drawable/common_full_open_on_phone" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/temperature_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@id/weather_icon_display"
+                android:background="@color/colorAccent"
+                android:text="21°C" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/wind_speed_display"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/temperature_display"
+                android:layout_toRightOf="@id/weather_icon_display"
+                android:background="@color/colorAccent"
+                android:text="5 km/h E" />
+        </RelativeLayout>
+
+        <!-- TODO: get data from weather api to populate dynamically -->
+        <!-- scrolls horizontally to show future weather in the area -->
         <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <SeekBar
+            android:id="@+id/forecast_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
+        <!-- alerts for if you can fly -->
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-    </RelativeLayout>
+    </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
