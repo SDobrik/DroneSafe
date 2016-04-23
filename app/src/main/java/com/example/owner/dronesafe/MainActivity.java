@@ -16,6 +16,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -78,42 +79,20 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         return true;
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == 1) {
-            if (permissions.length == 1 &&
-                    permissions[0] == Manifest.permission.ACCESS_FINE_LOCATION &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mMap.setMyLocationEnabled(true);
-            } else {
 
-
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getActiviy());
-//// Add the buttons
-//                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // User clicked OK button
-//                    }
-//                });
-//                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        // User cancelled the dialog
-//                    }
-//                });
-//// Set other dialog properties
-//
-//
-//// Create the AlertDialog
-//                AlertDialog dialog = builder.create();
-            }
-        }
-    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        double Latitude_Marker =43.8;
+        double Longitude_Marker =-80.52;
         mMap = googleMap;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
+            GPSTracker gps = new GPSTracker(this);
+            if(gps.canGetLocation()){
+                Latitude_Marker = gps.getLatitude();
+                Longitude_Marker = gps.getLongitude();
+            }
         } else {
             // TODO: fix the permissions request, ask using a dialog.
 //            ActivityCompat.requestPermissions(thisActivity,
@@ -122,8 +101,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //            // Show rationale and request permission.
         }
 
-        LatLng sydney = new LatLng(43.46, -80.52);// set it equal to current location
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        LatLng Phone_Location = new LatLng(Latitude_Marker,Longitude_Marker);// set it equal to current location
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
+        mMap.addMarker(new MarkerOptions().position(Phone_Location).title("Where you want to fly"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(Phone_Location));
     }
 }
