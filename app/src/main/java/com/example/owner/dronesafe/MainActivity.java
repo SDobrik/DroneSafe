@@ -97,7 +97,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         } else {
             // TODO: fix the permissions request, ask using a dialog.
-//            ActivityCompat.requestPermissions(thisActivity,
+//            ActivityCompat.requestPermissions(th*isActivity,
 //                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
 //                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
 //            // Show rationale and request permission.
