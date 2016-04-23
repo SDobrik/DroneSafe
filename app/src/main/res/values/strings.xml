@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">DroneSafe</string>
-
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBENzckC6LzGvktAnEj2cHWgTe9xQXRwDI</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCuk64p6TpkJYCQOiSjFnW_N_y0wHUq0Hg</string>
     <string name="title_activity_settings">Settings</string>
+
+    <!-- strings for drawer -->
+    <string name="nav_no_fly_label">No-fly zones</string>
+    <string name="nav_obstructions_label">Obstructions</string>
+    <string name="nav_about_label">About</string>
+    <string name="nav_settings_label">Settings</string>
 
     <!-- Strings related to Settings -->
     <string name="pref_default_location">Waterloo</string>
@@ -46,4 +51,10 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
