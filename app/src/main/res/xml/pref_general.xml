@@ -1,0 +1,28 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:capitalize="words"
+        android:defaultValue="@string/pref_default_location"
+        android:inputType="textCapWords"
+        android:key="pref_location"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/pref_title_location" />
+
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <ListPreference
+        android:defaultValue="@string/pref_temp_units_celsius"
+        android:entries="@array/pref_temp_unit_options_text"
+        android:entryValues="@array/pref_temp_unit_options"
+        android:key="pref_temp"
+        android:title="@string/pref_title_temp" />
+
+    <ListPreference
+        android:defaultValue="@string/pref_dist_units_metres"
+        android:entries="@array/pref_dist_unit_options_text"
+        android:entryValues="@array/pref_dist_unit_options"
+        android:key="pref_dist"
+        android:title="@string/pref_title_dist" />
+
+</PreferenceScreen>

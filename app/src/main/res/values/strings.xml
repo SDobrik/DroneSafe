@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">DroneSafe</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBENzckC6LzGvktAnEj2cHWgTe9xQXRwDI</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_default_location">Waterloo</string>
+    <string name="pref_title_location">Set Location</string>
+
+    <string name="pref_title_temp">Temperature</string>
+    <string name="pref_temp_units_celsius">celsius</string>
+    <string name="pref_temp_units_fahrenheit">fahrenheit</string>
+    <string name="pref_temp_celsius_label">Celsius</string>
+    <string name="pref_temp_fahrenheit_label">Fahrenheit</string>
+
+    <string name="pref_title_dist">Temperature</string>
+    <string name="pref_dist_units_metres">metres</string>
+    <string name="pref_dist_units_feet">feet</string>
+    <string name="pref_dist_metres_label">Metres</string>
+    <string name="pref_dist_feet_label">Feet</string>
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
 </resources>
