@@ -1,12 +1,18 @@
 package com.example.owner.dronesafe;
 
+import java.util.List;
+
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.location.Address;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -14,9 +20,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.EditText;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,12 +34,19 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback,
-         NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener {
 
     private GoogleMap mMap;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +63,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -81,20 +101,43 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         return true;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 1) {
+            if (permissions.length == 1 &&
+                    permissions[0].equals( Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //     mMap.setMyLocationEnabled(true);
+            } else {
+
+
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getActiviy());
+//// Add the buttons
+//                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        // User clicked OK button
+//                    }
+//                });
+//                builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        // User cancelled the dialog
+//                    }
+//                });
+//// Set other dialog properties
+//
+//
+//// Create the AlertDialog
+//                AlertDialog dialog = builder.create();
+            }
+        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        double Latitude_Marker =43.8;
-        double Longitude_Marker =-80.52;
         mMap = googleMap;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             mMap.setMyLocationEnabled(true);
-            GPSTracker gps = new GPSTracker(this);
-            if(gps.canGetLocation()){
-                Latitude_Marker = gps.getLatitude();
-                Longitude_Marker = gps.getLongitude();
-            }
         } else {
             // TODO: fix the permissions request, ask using a dialog.
 //            ActivityCompat.requestPermissions(thisActivity,
@@ -103,10 +146,73 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //            // Show rationale and request permission.
         }
 
+        LatLng sydney = new LatLng(43.46, -80.52);// set it equal to current location
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        LatLng Phone_Location = new LatLng(Latitude_Marker,Longitude_Marker);// set it equal to current location
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
-        mMap.addMarker(new MarkerOptions().position(Phone_Location).title("Where you want to fly"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(Phone_Location));
+
+    }
+
+
+    public void onSearch(View v) {
+        EditText myEditText = (EditText) findViewById(R.id.locationSearch);
+        String location = myEditText.getText().toString();
+        List<Address> addressList = null;
+        Address address = null;
+        if (location != null || !location.equals("")) {
+            Geocoder myGeocoder = new Geocoder(this);
+            try {
+                // Adress list of 1 result to which we will change the map view
+            addressList = myGeocoder.getFromLocationName(location, 1);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+         address = addressList.get(0);
+            LatLng resultLocation = new LatLng(address.getLatitude(), address.getLongitude());
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(resultLocation, 15));
+        }
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.owner.dronesafe/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Main Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app URL is correct.
+                Uri.parse("android-app://com.example.owner.dronesafe/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
     }
 }
