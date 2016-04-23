@@ -13,18 +13,11 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:layout_width="313dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/locationSearch"
         android:hint="@string/search"
         android:inputType="textUri"/>
-
-    <Button
-        android:layout_width="85dp"
-        android:layout_height="wrap_content"
-        android:text="@string/search"
-        android:id="@+id/bSearch"
-        android:nestedScrollingEnabled="false" />
 
 </LinearLayout>
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
