@@ -27,7 +27,7 @@
                 android:layout_margin="5pt"
                 android:layout_marginBottom="80pt"
                 android:onClick="ClickedTheDrone"
-                android:background="@color/colorAccent"
+                android:background="@drawable/button_color_gradient"
                 android:text="Blast Off!" />
 
 
