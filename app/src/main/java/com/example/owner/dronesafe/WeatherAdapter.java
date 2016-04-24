@@ -37,10 +37,18 @@ public class WeatherAdapter extends ArrayAdapter<WeatherInstance> {
         switch (desc){
             case "Rain":
                 return R.drawable.rainy;
-            case "Sun":
-                return R.drawable.sun;
             case "Clouds":
+                return R.drawable.partly_cloudy;
+            case "Thunderstorm":
+                return R.drawable.thunderain;
+            case "Drizzle":
+                return R.drawable.rainy;
+            case "Snow":
+                return R.drawable.snowy;
+            case "Atmosphere":
                 return R.drawable.cloudy;
+            case "Clear":
+                return R.drawable.sun;
             default:
                 return -1;
         }
