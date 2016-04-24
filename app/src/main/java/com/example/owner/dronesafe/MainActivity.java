@@ -10,18 +10,22 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback,
          NavigationView.OnNavigationItemSelectedListener {
 
     private GoogleMap mMap;
+    private Marker Marked_hold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         } else if (id == R.id.nav_about) {
-
+            startActivity(new Intent(this, AboutActivity.class));
+            return true;
         } else if (id == R.id.nav_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
@@ -102,8 +107,22 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         LatLng Phone_Location = new LatLng(Latitude_Marker,Longitude_Marker);// set it equal to current location
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(100));
-        mMap.addMarker(new MarkerOptions().position(Phone_Location).title("Where you want to fly"));
+
+        //mMap.addMarker(new MarkerOptions().position(Phone_Location).title("Where you want to fly"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Phone_Location));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
+
+
+        //mMap.getCameraPosition().target;
     }
+
+    public void ClickedTheDrone(View v){
+        if (Marked_hold != null){
+            Marked_hold.remove();
+        }
+        LatLng new_position= mMap.getCameraPosition().target;
+        Marked_hold =mMap.addMarker(new MarkerOptions().position(new_position).title("Where you want to fly"));
+        WeatherFragment.newInstance(new_position);
+    }
+
 }

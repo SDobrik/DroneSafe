@@ -14,4 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/weather_icon_display"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="5pt"
+                android:layout_marginBottom="80pt"
+                android:onClick="ClickedTheDrone"
+                android:background="@drawable/button_color_gradient"
+                android:text="Blast Off!" />
+
+
+        </RelativeLayout>
+
+        <!-- TODO: get data from weather api to populate dynamically -->
+        <!-- scrolls horizontally to show future weather in the area -->
+        <ListView
+            android:id="@+id/forecast_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- alerts for if you can fly -->
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 </com.sothree.slidinguppanel.SlidingUpPanelLayout>
