@@ -17,7 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@drawable/button_color_gradient"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            android:icon="@drawable/drone"
+            android:title="@string/title"/>
+
 
     </android.support.design.widget.AppBarLayout>
 
