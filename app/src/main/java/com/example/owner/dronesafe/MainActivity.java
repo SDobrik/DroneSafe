@@ -108,7 +108,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng Phone_Location = new LatLng(Latitude_Marker,Longitude_Marker);// set it equal to current location
 
-        mMap.addMarker(new MarkerOptions().position(Phone_Location).title("Where you want to fly"));
+        //mMap.addMarker(new MarkerOptions().position(Phone_Location).title("Where you want to fly"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Phone_Location));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
 
