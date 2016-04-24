@@ -14,20 +14,24 @@
     <!-- Strings related to Settings -->
     <string name="pref_default_location">Waterloo</string>
     <string name="pref_title_location">Set Location</string>
+    <string name="pref_location_key">location</string>
 
     <string name="pref_title_temp">Temperature Units</string>
+    <string name="pref_temp_key">temperature</string>
     <string name="pref_temp_units_celsius">celsius</string>
     <string name="pref_temp_units_fahrenheit">fahrenheit</string>
     <string name="pref_temp_celsius_label">Celsius</string>
     <string name="pref_temp_fahrenheit_label">Fahrenheit</string>
 
     <string name="pref_title_dist">Distance Units</string>
+    <string name="pref_dist_key">distance</string>
     <string name="pref_dist_units_metres">metres</string>
     <string name="pref_dist_units_feet">feet</string>
     <string name="pref_dist_metres_label">Metres</string>
     <string name="pref_dist_feet_label">Feet</string>
 
     <string name="pref_title_speed">Wind Speed Units</string>
+    <string name="pref_speed_key">speed</string>
     <string name="pref_speed_units_kmh">km/h</string>
     <string name="pref_speed_units_mph">mph</string>
     <string name="pref_speed_kmh_label">Kilometres per hour (km/h)</string>

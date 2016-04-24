@@ -1,30 +1,22 @@
 package com.example.owner.dronesafe;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends FragmentActivity implements OnMapReadyCallback,
          NavigationView.OnNavigationItemSelectedListener {
@@ -68,6 +60,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         if (id == R.id.nav_no_fly) {
             // Handle the camera action
         } else if (id == R.id.nav_obstructions) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("current_location", new LatLng(1,1));
+            WeatherFragment weatherFragment = new WeatherFragment();
+            weatherFragment.setArguments(bundle);
+
 
         } else if (id == R.id.nav_about) {
 
