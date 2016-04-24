@@ -10,12 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.lucasr.twowayview.TwoWayView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -34,7 +39,6 @@ import java.util.Objects;
 public class WeatherFragment extends Fragment {
 
     private WeatherAdapter mForecastAdapter;
-
 
     public WeatherFragment() {
         // Required empty public constructor
@@ -55,15 +59,41 @@ public class WeatherFragment extends Fragment {
         return fragment;
     }
 
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FetchWeatherTask weatherTask = new FetchWeatherTask();
+        weatherTask.execute((LatLng) getArguments().getParcelable("current_location"));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View weatherView = inflater.inflate(R.layout.fragment_weather, container, false);
+        final View weatherView = inflater.inflate(R.layout.fragment_weather, container, false);
+
+        mForecastAdapter = new WeatherAdapter(getActivity(), new ArrayList<WeatherInstance>());
         // set array adapter?
+        TwoWayView twoWayView = (TwoWayView) weatherView.findViewById(R.id.forecast_display);
+        twoWayView.setAdapter(mForecastAdapter);
+        twoWayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                previewWeather(weatherView, position);
+            }
+        });
 
         return weatherView;
     }
 
+    void previewWeather(View weatherView, int position) {
+        // pass data to big text and photo
+        WeatherInstance weatherInstance = mForecastAdapter.getItem(position);
+
+        ((ImageView) weatherView.findViewById(R.id.weather_icon_display))
+                .setImageResource(WeatherAdapter.getDrawableId(weatherInstance.getDescription()));
+        ((TextView) weatherView.findViewById(R.id.temperature_display))
+                .setText(weatherInstance.getTemperature());
+        ((TextView) weatherView.findViewById(R.id.wind_speed_display))
+                .setText(weatherInstance.getWind());
+    }
 
     // fetchweathertask class w/ doinbackground
     public class FetchWeatherTask extends AsyncTask<LatLng, Void, WeatherInstance[]> {
@@ -71,16 +101,36 @@ public class WeatherFragment extends Fragment {
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         private String formatTemp(double temp, String unitType) {
+            String unitDisplay = "°C";
+            double temperature = temp;
             if (unitType.equals(getString(R.string.pref_temp_units_fahrenheit))) {
-                temp = temp * 1.8 + 32;
+                temperature = temp * 1.8 + 32;
+                unitDisplay = "°F";
             } else if (!unitType.equals(getString(R.string.pref_temp_units_celsius))) {
                 Log.d(LOG_TAG, "Unit type not found: " + unitType);
             }
 
             // For presentation, assume the user doesn't care about tenths of a degree.
-            long roundedTemp = Math.round(temp);
+            long roundedTemp = Math.round(temperature);
 
-            return Objects.toString(roundedTemp, null);
+            return Objects.toString(roundedTemp, null) + unitDisplay;
+        }
+
+        private String formatWind(double speed, double dir, String speedUnit){
+            String wind="";
+            double windSpeed=speed;
+            String unitDisplay = "km/h";
+            String windDir= Objects.toString(dir) + "°";
+            if (speedUnit.equals(getString(R.string.pref_speed_units_mph))) {
+                windSpeed = speed / 1.6;
+                unitDisplay = "mph";
+            } else if (!speedUnit.equals(getString(R.string.pref_speed_units_kmh))) {
+                Log.d(LOG_TAG, "Unit type not found: " + speedUnit);
+            }
+
+
+            wind = windSpeed + " " + unitDisplay + " " + windDir;
+            return wind;
         }
 
         /**
@@ -117,12 +167,15 @@ public class WeatherFragment extends Fragment {
             String tempUnit = sharedPrefs.getString(
                     getString(R.string.pref_temp_key),
                     getString(R.string.pref_temp_units_celsius));
+            String speedUnit = sharedPrefs.getString(
+                    getString(R.string.pref_speed_key),
+                    getString(R.string.pref_speed_units_kmh));
 
             for (int i = 0; i < weatherArray.length(); i++) {
+                resultStrs[i] = new WeatherInstance();
                 String description;
                 String temperature;
-                String windSpeed;
-                String windDir;
+                String wind;
 
                 // Get the JSON object representing the day
                 JSONObject dayForecast = weatherArray.getJSONObject(i);
@@ -133,17 +186,18 @@ public class WeatherFragment extends Fragment {
 
                 // Temperatures are in a child object called "temp".  Try not to name variables
                 // "temp" when working with temperature.  It confuses everybody.
-                JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
+                JSONObject temperatureObject = dayForecast.getJSONObject(OWM_DESCRIPTION);
                 double temp = temperatureObject.getDouble(OWM_TEMPERATURE);
                 temperature = formatTemp(temp, tempUnit);
 
                 JSONObject windObject = dayForecast.getJSONObject(OWM_WIND);
-                windSpeed = Objects.toString(windObject.getDouble(OWM_SPEED) );
-                windDir = Objects.toString(windObject.getDouble(OWM_DIRECTION));
+                double speed = windObject.getDouble(OWM_SPEED);
+                double dir = windObject.getDouble(OWM_DIRECTION);
+                wind = formatWind(speed,dir,speedUnit);
 
                 resultStrs[i].setTemperature(temperature);
                 resultStrs[i].setDescription(description);
-                resultStrs[i].setWind(windSpeed + " " + windDir);
+                resultStrs[i].setWind(wind);
             }
             return resultStrs;
 
@@ -257,6 +311,8 @@ public class WeatherFragment extends Fragment {
                     mForecastAdapter.add(dayForecastStr);
                 }
                 // New data is back from the server.  Hooray!
+                View weatherView = getActivity().findViewById(R.id.fragment_view);
+                previewWeather(weatherView, 0);
             }
         }
     }

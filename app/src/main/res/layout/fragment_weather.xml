@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:id="@+id/fragment_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,35 +13,31 @@
             android:id="@+id/weather_icon_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16px"
-            android:background="@color/colorAccent"
-            android:src="@drawable/common_full_open_on_phone" />
+            android:layout_margin="16px" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:id="@+id/temperature_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_toRightOf="@id/weather_icon_display"
-            android:background="@color/colorAccent"
-            android:text="21°C" />
+            android:layout_toRightOf="@id/weather_icon_display" />
 
-        <android.support.v7.widget.AppCompatTextView
+        <TextView
             android:id="@+id/wind_speed_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/temperature_display"
-            android:layout_toRightOf="@id/weather_icon_display"
-            android:background="@color/colorAccent"
-            android:text="5 km/h E" />
+            android:layout_toRightOf="@id/weather_icon_display" />
     </RelativeLayout>
 
     <!-- TODO: get data from weather api to populate dynamically -->
     <!-- scrolls horizontally to show future weather in the area -->
-    <ListView
+    <org.lucasr.twowayview.TwoWayView
         android:id="@+id/forecast_display"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:minWidth="20dp" />
 
     <!-- alerts for if you can fly -->
     <android.support.v7.widget.AppCompatTextView

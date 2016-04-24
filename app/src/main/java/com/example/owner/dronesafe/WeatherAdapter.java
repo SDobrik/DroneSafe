@@ -18,22 +18,31 @@ public class WeatherAdapter extends ArrayAdapter<WeatherInstance> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         WeatherInstance weatherInstance = getItem(position);
 
-        if (convertView == null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.forecast_item, parent, false);
         }
 
         ImageView ivForecastPreview = (ImageView) convertView.findViewById(R.id.forecast_preview_icon);
 
         // set forecast icon based on description
-        switch (weatherInstance.getDescription()){
-
-            default:
-                break;
-        }
-        ivForecastPreview.setImageDrawable(getContext().getDrawable(R.drawable.sun));
+        int drawableId = getDrawableId(weatherInstance.getDescription());
+        ivForecastPreview.setImageResource(drawableId);
         return convertView;
+    }
+
+    public static int getDrawableId(String desc){
+        switch (desc){
+            case "Rain":
+                return R.drawable.rainy;
+            case "Sun":
+                return R.drawable.sun;
+            case "Clouds":
+                return R.drawable.cloudy;
+            default:
+                return -1;
+        }
     }
 }

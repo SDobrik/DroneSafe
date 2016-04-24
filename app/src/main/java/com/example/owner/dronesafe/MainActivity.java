@@ -122,7 +122,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng new_position= mMap.getCameraPosition().target;
         Marked_hold =mMap.addMarker(new MarkerOptions().position(new_position).title("Where you want to fly"));
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.weather_fragment_frame, new WeatherFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.weather_fragment_frame,
+                WeatherFragment.newInstance(new_position)).commit();
     }
 
 }
