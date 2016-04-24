@@ -1,4 +1,5 @@
 <resources>
+    <string name="title">DroneSafe</string>
     <string name="google_app_id">dronesafe-1290</string>
     <string name="app_name">DroneSafe</string>
     <string name="title_activity_settings">Settings</string>
@@ -37,6 +38,20 @@
     <string name="pref_speed_kmh_label">Kilometres per hour (km/h)</string>
     <string name="pref_speed_mph_label">Miles per hour (mph)</string>
 
+    <!-- Strings related to About -->
+    <string name="ffa_title">
+        If you are flying for commercial purposes you must get FAA permission to fly.
+        To prevent accidents for  during recreational flights the FFA recommends:
+    </string>
+    <string name="faa_rule1"> Fly below 400 feet (120 meters) and remain clear of obstacles</string>
+    <string name="faa_rule2"> Keep the aircraft within visual line of sight at all times</string>
+    <string name="faa_rule3"> Remain well clear of and do not interfere with manned aircraft operations</string>
+    <string name="faa_rule4"> Do not fly within 5 miles of an airport unless you contact the airport and control tower before flying</string>
+    <string name="faa_rule5"> Do not fly near people or stadiums </string>
+    <string name="faa_rule6"> Do not fly an aircraft that weighs more than 55 lbs</string>
+    <string name="faa_rule7"> Don not be careless or reckless with your unmanned aircraft</string>
+
+    <string name="love">Made with love at SpaceApps Waterloo 2016</string>
     <!-- For Activity_main -->
     <string name="search">Search</string>
 

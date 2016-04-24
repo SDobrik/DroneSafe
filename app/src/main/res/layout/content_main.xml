@@ -15,7 +15,8 @@
 
     <!--&lt;!&ndash;<EditText&ndash;&gt;-->
         <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:lay
+        out_height="wrap_content"&ndash;&gt;-->
         <!--&lt;!&ndash;android:id="@+id/locationSearch"&ndash;&gt;-->
         <!--&lt;!&ndash;android:hint="@string/search"&ndash;&gt;-->
         <!--&lt;!&ndash;android:inputType="textUri"/>&ndash;&gt;-->
