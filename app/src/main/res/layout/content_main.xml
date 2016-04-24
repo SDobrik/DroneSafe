@@ -28,11 +28,12 @@
         tools:context=".MainActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:layout="@layout/abc_screen_simple"/>
-    <Button android:id="@+id/googlemaps_select_location"
+    <ImageView android:id="@+id/googlemaps_select_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/Drone_Marker"/>
+        android:clickable="true"
+        android:src="@drawable/ic_menu_camera"/>
 </RelativeLayout>
 
