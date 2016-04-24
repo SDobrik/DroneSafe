@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.app.PendingIntent.getActivity;
@@ -31,6 +33,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
          NavigationView.OnNavigationItemSelectedListener {
 
     private GoogleMap mMap;
+    private Marker Marked_hold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,4 +118,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         //mMap.getCameraPosition().target;
     }
+
+    public void ClickedTheDrone(View v){
+        if (Marked_hold != null){
+            Marked_hold.remove();
+        }
+        LatLng new_position= mMap.getCameraPosition().target;
+        Marked_hold =mMap.addMarker(new MarkerOptions().position(new_position).title("Where you want to fly"));
+        WeatherFragment.newInstance(new_position);
+
+    }
+
 }
