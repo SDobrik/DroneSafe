@@ -126,7 +126,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng new_position= mMap.getCameraPosition().target;
         Marked_hold =mMap.addMarker(new MarkerOptions().position(new_position).title("Where you want to fly"));
         WeatherFragment.newInstance(new_position);
-
     }
 
 }

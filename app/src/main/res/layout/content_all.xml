@@ -18,31 +18,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <Button
                 android:id="@+id/weather_icon_display"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="16px"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:layout_margin="5pt"
+                android:layout_marginBottom="80pt"
+                android:onClick="ClickedTheDrone"
                 android:background="@color/colorAccent"
-                android:src="@drawable/common_full_open_on_phone" />
+                android:text="Blast Off!" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/temperature_display"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_toRightOf="@id/weather_icon_display"
-                android:background="@color/colorAccent"
-                android:text="21°C" />
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/wind_speed_display"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/temperature_display"
-                android:layout_toRightOf="@id/weather_icon_display"
-                android:background="@color/colorAccent"
-                android:text="5 km/h E" />
         </RelativeLayout>
 
         <!-- TODO: get data from weather api to populate dynamically -->
