@@ -11,12 +11,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -33,6 +33,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_main);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        FrameLayout frameLayout = (FrameLayout) findViewById(R.id.inflaterLayout);
+        View view = getLayoutInflater().inflate(R.layout.content_all, null);
+        frameLayout.addView(view);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -64,11 +68,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         if (id == R.id.nav_no_fly) {
             // Handle the camera action
         } else if (id == R.id.nav_obstructions) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("current_location", new LatLng(1,1));
-            WeatherFragment weatherFragment = new WeatherFragment();
-            weatherFragment.setArguments(bundle);
-
 
         } else if (id == R.id.nav_about) {
             startActivity(new Intent(this, AboutActivity.class));
@@ -122,7 +121,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         LatLng new_position= mMap.getCameraPosition().target;
         Marked_hold =mMap.addMarker(new MarkerOptions().position(new_position).title("Where you want to fly"));
-        WeatherFragment.newInstance(new_position);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.weather_fragment_frame, new WeatherFragment()).commit();
     }
 
 }

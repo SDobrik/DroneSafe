@@ -33,7 +33,7 @@ public class WeatherAdapter extends ArrayAdapter<WeatherInstance> {
             default:
                 break;
         }
-        //ivForecastPreview.setImageDrawable(getContext().getDrawable(R.drawable.m));
+        ivForecastPreview.setImageDrawable(getContext().getDrawable(R.drawable.sun));
         return convertView;
     }
 }

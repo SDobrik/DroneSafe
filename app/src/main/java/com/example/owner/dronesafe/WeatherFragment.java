@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -34,7 +33,7 @@ import java.util.Objects;
  */
 public class WeatherFragment extends Fragment {
 
-    private ArrayAdapter<String> mForecastAdapter;
+    private WeatherAdapter mForecastAdapter;
 
 
     public WeatherFragment() {
@@ -56,18 +55,10 @@ public class WeatherFragment extends Fragment {
         return fragment;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getFragmentManager().beginTransaction()
-                .add(R.id.weather_fragment_frame, new WeatherFragment())
-                .commit();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View weatherView = inflater.inflate(R.layout.fragment_weather, container, true);
+        View weatherView = inflater.inflate(R.layout.fragment_weather, container, false);
         // set array adapter?
 
         return weatherView;
@@ -263,7 +254,7 @@ public class WeatherFragment extends Fragment {
             if (result != null) {
                 mForecastAdapter.clear();
                 for (WeatherInstance dayForecastStr : result) {
-                    //mForecastAdapter.add(dayForecastStr);
+                    mForecastAdapter.add(dayForecastStr);
                 }
                 // New data is back from the server.  Hooray!
             }
