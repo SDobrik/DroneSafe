@@ -28,7 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".MainActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
         tools:layout="@layout/abc_screen_simple"/>
     <ImageView android:id="@+id/googlemaps_select_location"
         android:layout_width="wrap_content"
